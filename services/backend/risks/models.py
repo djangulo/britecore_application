@@ -12,13 +12,7 @@ FIELD_TYPE_CHOICES = (
 
 
 class RiskType(models.Model):
-    """
-    This is a metadata table that will map the ORM to actual tables bia
-    the contenttypes framework.
-
-    Fields:
-    risk_type -- CharField(255)
-    """
+    """Represents a risk type."""
     name = models.CharField(max_length=255, blank=False)
 
     def __str__(self):
@@ -81,9 +75,7 @@ class RiskType(models.Model):
 
 
 class FieldType(models.Model):
-    """
-    Metadata table.
-    """
+    """Represents a field type."""
     name = models.CharField(max_length=255, blank=False)
     data_type = models.IntegerField(choices=FIELD_TYPE_CHOICES, default=0,
                                     blank=False)
