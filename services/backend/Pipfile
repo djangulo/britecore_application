@@ -6,9 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
+"flake8" = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 "flake8" = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
