@@ -12,8 +12,8 @@ class FieldTypeSerializer(serializers.ModelSerializer):
 
 class RiskTypeSerializer(serializers.ModelSerializer):
     """Serializer for RiskType model."""
-    field_types = FieldTypeSerializer(many=True, read_only=True)
+    fields = FieldTypeSerializer(many=True, read_only=True)
 
     class Meta:
         model = models.RiskType
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'fields')
