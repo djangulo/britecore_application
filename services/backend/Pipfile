@@ -8,6 +8,8 @@ django = "*"
 djangorestframework = "*"
 "flake8" = "*"
 "psycopg2-binary" = "*"
+gunicorn = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 "flake8" = "*"

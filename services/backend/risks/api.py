@@ -10,7 +10,7 @@ class RiskTypeViewSet(viewsets.ModelViewSet):
     """Viewset for RiskType model."""
     queryset = models.RiskType.objects.all()
     serializer_class = serializers.RiskTypeSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]
 
     @action(detail=True, methods=['post'])
     def add_field(self, request, pk=None):
@@ -51,4 +51,4 @@ class FieldTypeViewSet(viewsets.ModelViewSet):
     """Viewset for FieldType model."""
     queryset = models.FieldType.objects.all()
     serializer_class = serializers.FieldTypeSerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
+    # permission_classes = [IsAuthenticatedOrReadOnly]

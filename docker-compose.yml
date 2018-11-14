@@ -1,15 +1,16 @@
 version: '3'
 
 services:
+
   backend:
     build:
       context: ./services/backend
       dockerfile: Dockerfile
-    command: python /usr/src/backend/manage.py runserver 0.0.0.0:8000
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000 -w 4
     volumes:
       - './services/backend:/usr/src/backend'
     ports:
-      - 8000:8000
+      - 8081
     environment:
       - SECRET_KEY=Zy/KXWW+9zIKkIbrcEYmDjdvqgDgE6BvXGEbmwbreQBnax7tlt0HqDpsUkvckP6jLQ4=
       - POSTGRES_HOST=db
@@ -19,7 +20,11 @@ services:
       - POSTGRES_DB=postgres
     depends_on:
       - db
-    
+  
+  frontend:
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
   
   db:
     image: postgres:10.5-alpine
@@ -31,5 +36,15 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
+  nginx:
+    build: ./services/nginx
+    volumes:
+      - static:/usr/src/frontend/dist
+    ports:
+      - 8081
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:
+  static:
