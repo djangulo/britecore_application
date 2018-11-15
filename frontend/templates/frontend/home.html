@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'frontend/home.css' %}">
+    <!--<link rel="icon" href="<%= BASE_URL %>favicon.ico">-->
+    <title>Denis Angulo - Application Project</title>
+  </head>
+  <body>
+    <h1 class="text-center">Welcome to my BriteCore application project!</h1>
+    <p class="text-center">Thank you for taking the time to review my project.</p>
+    <p class="text-center">Here is the <a href="#">link to the github repository.</a></p>
+    <div id="app" class="container">
+      <div class="row">
+        <div class="col-4">
+            <div class="list-group">  
+              <div 
+                class="list-group-item cursor" 
+                v-for="(risk, i) in availableRisks" 
+                v-on:click="onRiskSelect(risk)" 
+                v-bind:class="{ active: risk === selectedRisk }" >
+                ${ risk.name }
+                <button type="button" class="close" aria-label="Delete risk"
+                v-if="!(i === 0 || i === 1 || i === 2)"
+                v-on:click="deleteRisk(risk)">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+            </div>
+            <div class="row">
+              <h4 class="mt-4">Create a new risk type</h4>
+              <form class="form" v-on:submit.prevent="submitRiskForm">
+                  <label for="risk-name">Name
+                    <input class="form-control" type="text" name="risk-name" v-model="newRisk.name">
+                  </label>
+                  <label for="risk-name">Description
+                      <input class="form-control" type="text" name="risk-name" v-model="newRisk.description">
+                    </label>
+                  <button class="btn btn-default mb-3" type="button" class="button" @click="addNewRiskField">Add field</button>
+                  <div v-for="(f, i) in newRisk.fields" :key="i" class="form-group">
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <select class="input-group-text" v-bind="{ id: `new-risk-field-type-${i}` }" name="data_type" v-model="newRisk.fields[i].data_type">
+                          <option value="0">Text  </option>
+                          <option value="1">Number</option>
+                          <option value="2">Date  </option>
+                          <option value="3">Enum  </option>
+                        </select>
+                      </div>
+                      <input type="text" 
+                      class="form-control" 
+                      placeholder="Field name" 
+                      v-bind="{ id: `new-risk-field-name-${i}` }" 
+                      v-model="newRisk.fields[i].name">
+                      <div class="input-group-append">
+                        <button 
+                        class="btn btn-outline-danger" 
+                        type="button" 
+                        v-bind="{ id: `new-risk-field-remove-${i}` }" 
+                        v-on:click="removeNewRiskField(i)">X</button>
+                      </div>
+                      <br>
+                    </div>
+                    <input type="text" 
+                    class="form-control" 
+                    placeholder="Help text" 
+                    v-bind="{ id: `new-risk-field-help-${i}` }" 
+                    v-model="newRisk.fields[i].help_text">
+                  </div>
+                  <br>
+                  <button v-if="newRisk.fields" class="btn btn-primary" type="submit" class="button">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-6">
+          <div class="card" v-if="fullSelectedRisk">
+            <div class="card-body">
+              <h5 class="card-title">${ fullSelectedRisk.name }</h5>
+              <p class="card-text">${ fullSelectedRisk.description }</p>
+            </div>
+            <form>
+              <div class="form-group mb-3" v-for="(field, j) in fullSelectedRisk.fields" :key="j">
+                  <label v-bind="{ for: `input-${j}` }">${ field.name }</label>
+                  <input v-if="field.data_type == 0" type="text" class="form-control" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" >
+                  <input v-if="field.data_type == 1" type="number" class="form-control" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" >
+                  <!-- <input v-if="field.data_type == 2" type="date" class="form-control" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" > -->
+                  <vuejs-datepicker 
+                  v-if="field.data_type == 2" 
+                  input-class="form-control" 
+                  v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }"></vuejs-datepicker>
+                  <small v-if="field.help_text" v-bind="{ id: `input-${j}-help`}" class="form-text text-muted">${ field.help_text }</small>
+                  <div v-if="field.data_type == 3" type="number" class="form-control" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" >
+                  </div>
+              </div>
+            </form>
+          </div>
+
+      </div>
+      </div>
+    </div>
+    <div id="single-risk">
+
+    </div>
+    <footer>
+    </footer>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.4/es6-shim.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script src="https://unpkg.com/vuejs-datepicker"></script>
+  <script type="text/javascript">
+    const apiRoot = 'http://localhost:8000/api/v1.0'
+    new Vue({
+      el: '#app',
+      delimiters: ['${', '}'],
+      props: {
+        msg: String
+      },
+      components: {
+        vuejsDatepicker
+      },
+      data: {
+        availableRisks: null,
+        selectedRisk: null,
+        fullSelectedRisk: null,
+        enums: [],
+        newRisk: {
+          name: '',
+          description: '',
+          fields: [],
+        },
+        err: ''
+      },
+      mounted: function() {
+        this.getRisks()
+      },
+      methods: {
+        addNewRiskField: function() {
+          this.newRisk.fields.push({
+            data_type: 0,
+            name: '',
+            help_text: '',
+          })
+        },
+        captureEnums: function() {
+          for (let i = 0; i < this.availableRisks.length; i++) {
+            console.dir( this.availableRisks[i].fields);
+            let ems = this.availableRisks[i].fields.filter(f => f.data_type == 3);
+            if (ems.length > 0) {
+              this.enums.push(1);
+            }
+          }
+        },
+        removeNewRiskField: function(index) {
+          this.newRisk.fields = this.newRisk.fields.slice(0, index).concat(this.newRisk.fields.slice(index+1));
+        },        
+        submitRiskForm: function() {
+          this.createRisk(this.newRisk);
+        },
+        onRiskSelect: function(risk) {
+          this.selectedRisk = risk;
+          this.getRisk(risk.id);
+        },
+        getRisks: function() {
+          axios
+            .get(`${apiRoot}/risks/`)
+            .then(response => {
+              this.availableRisks = response.data;
+              this.captureEnums();
+
+            })
+            .catch(err => this.err = err)
+        },
+        getRisk: function(riskId) {
+          axios
+            .get(`${apiRoot}/risks/${riskId}/`)
+            .then(response => {
+              this.fullSelectedRisk = response.data;
+              this.formFields = this.fullSelectedRisk.fields;
+            })
+            .catch(err => this.err = err)
+        },
+        createRisk: function(risk) {
+          axios
+            .post(`${apiRoot}/risks/`, {
+              'name': risk.name,
+              'description': risk.description,
+              'fields': risk.fields,
+            })
+            .then(response => {
+              this.newRisk.fields = [];
+              this.getRisks();
+            })
+            .catch(err => this.$emit('api-data', err))
+        },
+        deleteRisk: function(risk) {
+          axios
+            .delete(`${apiRoot}/risks/${risk.id}/`)
+            .then(response => {
+              this.fullSelectedRisk = null;
+              this.selectedRisk = null;
+              this.getRisks();
+            })
+        }
+      }
+    });
+
+  </script>
+
+</html>
