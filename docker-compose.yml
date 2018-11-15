@@ -2,29 +2,24 @@ version: '3'
 
 services:
 
-  backend:
+  app:
     build:
-      context: ./services/backend
+      context: ./services/app
       dockerfile: Dockerfile
-    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000 -w 4
+    command: gunicorn britecore_application.wsgi:application --bind 0.0.0.0:8000 -w 4
     volumes:
-      - './services/backend:/usr/src/backend'
+      - './:/usr/src/app'
     ports:
-      - 8081
+      - 8000:8000
     environment:
       - SECRET_KEY=Zy/KXWW+9zIKkIbrcEYmDjdvqgDgE6BvXGEbmwbreQBnax7tlt0HqDpsUkvckP6jLQ4=
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=risks_dbuser
+      - POSTGRES_PASSWORD=O[ex*U]k,#LI/IAwjtW7GA1<J
+      - POSTGRES_DB=risks_db
     depends_on:
       - db
-  
-  frontend:
-    build:
-      context: ./services/frontend
-      dockerfile: Dockerfile
   
   db:
     image: postgres:10.5-alpine
@@ -33,15 +28,15 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=risks_dbuser
+      - POSTGRES_PASSWORD=O[ex*U]k,#LI/IAwjtW7GA1<J
 
   nginx:
     build: ./services/nginx
     volumes:
       - static:/usr/src/frontend/dist
     ports:
-      - 8081
+      - 8080
     depends_on:
       - backend
 
