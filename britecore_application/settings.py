@@ -80,24 +80,14 @@ WSGI_APPLICATION = 'britecore_application.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, '..', 'db.sqlite3'),
-#         'TEST': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': os.path.join(BASE_DIR, 'testdb.sqlite3'),
-#         }
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'risks_db'),
-        'USER': os.getenv('POSTGRES_USER', 'risks_dbuser'),
-        'PASSWORD': os.getenv('SQL_PASSWORD'),
-        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        'ENGINE': os.getenv("SQL_ENGINE", 'django.db.backends.sqlite3'),
+        'NAME': os.getenv('SQL_DB', os.path.join(BASE_DIR, 'db.sqlite3')),
+        'USER': os.getenv('SQL_USER', 'user'),
+        'PASSWORD': os.getenv('SQL_PASSWORD', 'password'),
+        'HOST': os.getenv('SQL_HOST', 'localhost'),
+        'PORT': os.getenv('SQL_PORT', '5432'),
     }
 }
 

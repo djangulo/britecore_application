@@ -1,7 +1,8 @@
 from rest_framework.authtoken.models import Token
 from django.core.exceptions import ValidationError
-from django.db import models, transaction
+from django.db import models, transaction, connection
 from django.utils.translation import gettext_lazy as _
+from django.utils.text import slugify
 
 
 FIELD_TYPE_CHOICES = (
@@ -10,6 +11,17 @@ FIELD_TYPE_CHOICES = (
     (2, _('date')),
     (3, _('enum')),
 )
+
+def underslugify(string):
+    return slugify(string).replace('-', '_')
+
+# def create_sql_table(risk, fields, app_name='risks'):
+#     columns = ""
+#     for field in fields:
+#         if field.data_type == 0:
+#             columns += 
+#     pass
+        
 
 
 

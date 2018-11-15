@@ -1,0 +1,18 @@
+{
+    "DBName": "postgres",
+    "DBInstanceIdentifier": "britecore-app-db",
+    "AllocatedStorage": 5,
+    "DBInstanceClass": "db.t2.small",
+    "Engine": "postgres",
+    "MasterUsername": "postgres",
+    "MasterUserPassword": "CHANGEME",
+    "AvailabilityZone": "us-east-2a",
+    "Port": 5432,
+    "EngineVersion": "10.5",
+    "AutoMinorVersionUpgrade": true,
+    "PubliclyAccessible": true,
+    "StorageType": "standard",
+    "StorageEncrypted": false,
+    "EnableIAMDatabaseAuthentication": false,
+    "DeletionProtection": false
+}

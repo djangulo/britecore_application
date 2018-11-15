@@ -18,12 +18,12 @@
         "runtime": "python3.6",
         "s3_bucket": "britecore-application-bucket",
         "aws_environment_variables": {
-            "SECRET_KEY": "tPLXtPLT1XMwNJDRPNHPqfKp0nbi4qnu6sCIJnfNoxFLttxHOb",
-            "SQL_PASSWORD": "CqmQXkFJzAjETTGnFvH0vyXi6iUeVTbmhgW4ZxjcKEdv34AqeX",
+            "SECRET_KEY": "CHANGESECRETKEY",
+            "SQL_PASSWORD": "DBPASS",
             "SQL_USER": "postgres",
             "SQL_DB": "postgres",
             "SQL_ENGINE": "django.db.backends.postgresql",
-            "SQL_HOST": "britecore-app-db.cmojudq4ebky.us-east-2.rds.amazonaws.com",
+            "SQL_HOST": DBHOST,
             "SQL_PORT": "5432"
         },
         "vpc_config": {
