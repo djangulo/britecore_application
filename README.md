@@ -67,7 +67,7 @@ http://18.191.189.208/api/v1.0/
 
 I decided to use Django with Django Rest Framework, as it is an incredibly powerful tool for API creation.
 
-The tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model and a FieldType model, then relating the FieldType to the RiskType via a foreign key. They're arranged as follows:
+The tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model, and a FieldType model, then relating the FieldType to the RiskType via a foreign key. They're arranged as follows:
 
 RiskType model has:
 
@@ -82,7 +82,7 @@ FieldType model has:
 - `number_of_fields`, convenience field for Enum types. I'm well aware this is not the best approach to having Enums with multiple form fields (a custom model field using MultiWidget is the way to go, in my opinion). But, since I implemented all my forms with JavaScript (Vue.js, more precisely), MultiWidget was not an option. This approach seemed to offer the best benefits for the scope and time constraints of this project.
 - `risk` field, not-required, nullable foreign key field to the RiskType model
 
-You would notice that neither the RiskType or FieldType's names are unique, this was by design, since the frontend tighly couples the FieldType to the RiskType on creation. This prevents accidentally deleting some other RiskType's fields when deleting any RiskType instance.
+You would notice that neither the RiskType or FieldType's names are unique, this was by design, since the frontend tightly couples the FieldType to the RiskType on creation. This prevents accidentally deleting some other RiskType's fields when deleting any RiskType instance.
 
 I left the foreign key un-required (blank=True) and nullable, this way I'm allowed to hit the API to create FieldType objects without having to attach it to a RiskType object. I also added a `bulk_add_fields` convenience method to the RiskType model, to get-or-create an incoming FieldType set on the RiskType API endpoint.
 
