@@ -65,6 +65,13 @@ http://18.191.189.208/api/v1.0/
 
 ## My approach<a name="approach"></a>
 
+The way this solution would allow clients to define their own models, is by giving them the freedom to create fields as they would please. These fields, attached to a Risk description, would then trigger a new database table creation (not implemented).
+
+In this way, the models presented in the `risks/models.py` file would act as metadata tables, holding the data that would allow the system to connect to the actual database tables.
+
+Database table names would be defined by the insurer, as defined by the RiskType name.
+The insurer would be able to attach as many FieldTypes(to the RiskType object), as they would like, naming without restrictions, as they will only pertain to a particular risk.
+
 I decided to use Django with Django-REST-Framework, as it is an incredibly powerful tool for API creation.
 
 The tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model, and a FieldType model, then relating the FieldType to the RiskType via a foreign key. They're arranged as follows:
@@ -79,8 +86,8 @@ FieldType model has:
 - `name` field (CharField).
 - `data_type` field, IntegerField with choices.
 - `help_text` field, CharField (seemed appropriate as these will emulate form fields).
-- `number_of_fields`, convenience field for Enum types. I'm well aware this is not the best approach to having Enums with multiple form fields (a custom model field using MultiWidget is the way to go, in my opinion). But, since I implemented all my forms with JavaScript (Vue.js, more precisely), MultiWidget was not an option. This approach seemed to offer the best benefits for the scope and time constraints of this project.
-- `risk` field, not-required, nullable foreign key field to the RiskType model.
+- `number_of_fields`, convenience field for Enum types. I'm well aware this is not the best approach to having Enums with multiple form fields ([Postgres's Array Field](https://docs.djangoproject.com/en/2.1/ref/contrib/postgres/fields/#arrayfield) field using [Django's MultiWidget](https://docs.djangoproject.com/en/2.1/ref/forms/widgets/#django.forms.MultiWidget) would have been a better solution, in my opinion). Nevertheless, since I implemented all my forms with JavaScript (Vue.js, more precisely), MultiWidget was not an option. This approach seemed to offer the best benefits for the scope and time constraints of this project.
+- `risk` field. Not-required, nullable foreign key field to the RiskType model.
 
 You would notice that neither the RiskType or FieldType's names are unique, this was by design, since the frontend tightly couples the FieldType to the RiskType on creation. This prevents accidentally deleting some other RiskType's fields when deleting any RiskType instance.
 
