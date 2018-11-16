@@ -1,20 +1,10 @@
 # Denis Angulo's britecore application project
 
-Hello, and welcome to my application project.
 
-This project was built with the following technologies:
-
-* django
-* django-rest-framework
-* Vue.js
-* Amazon Web Services
-* aws-cli
-* Docker
-* pipenv
-* Bootstrap4
 
 ## TOC<a name="toc"></a>
 
+- [About](#about)
 - [Links to deployed versions](#links)
     - [AWS Lambda](#aws-lambda)
     - [AWS EC2 (with docker)](#aws-ec2)
@@ -29,6 +19,20 @@ This project was built with the following technologies:
     - [Un-deploy](#undeploy)
 - [Closing comments](#closing-comments)
 
+## About<a name="about"></a>
+
+Hello, and welcome to my application project.
+
+This was was built with the following technologies:
+
+* django
+* django-rest-framework
+* Vue.js
+* Amazon Web Services
+* aws-cli
+* Docker
+* pipenv
+* Bootstrap4
 
 ## Links to the deployed version<a name="links"></a>
 
@@ -60,9 +64,9 @@ http://18.191.189.208/api/v1.0/
 
 ## My approach<a name="approach"></a>
 
-I decided to use Django with Django Rest Framework, as it keeps it pretty simple to create a maintainable API.
+I decided to use Django with Django Rest Framework, as it is an incredibly powerful tool for API creation.
 
-I modeled the two tables rather straightforwardly (by Django standards), by creating a RiskType model and a FieldType model, and relating the FieldType to the RiskType via a foreign key. Their arranged as follows:
+The tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model and a FieldType model, then relating the FieldType to the RiskType via a foreign key. Their arranged as follows:
 
 RiskType model has:
 
@@ -79,7 +83,7 @@ FieldType model has:
 
 You would notice that neither the RiskType or FieldType's names are unique, this was by design, since in the frontend I'm tighly coupling the FieldType to the RiskType on creation. This prevents accidentally deleting some other RiskType's fields when deleting any RiskType instance.
 
-I left the foreign key un-required (blank=True) and nullable, that way It allows me to hit the API and create FieldType objects without having to attach it to a RiskType object. I also added a `bulk_add_fields` convenience method to the RiskType model, to get-or-create an incoming field set.
+I left the foreign key un-required (blank=True) and nullable, this way I'm allowed to hit the API and create FieldType objects without having to attach it to a RiskType object. I also added a `bulk_add_fields` convenience method to the RiskType model, to get-or-create an incoming FieldType set on the RiskType API endpoint.
 
 For the frontend, I embedded a Vue.js instance into a TemplateView (instanced directly in `britecore_application/urls.py`), and performed all API calls and form rendering through the Vue app.
 
@@ -113,7 +117,7 @@ I understand this is a concept project, but if I had to fully implement the desc
     </p>
 7. A well-tested REST API written in Python.
     - Tests are found in `risks/tests/test_api.py`.
-    - I have left DRF's DefaultRouter explorer view enabled,
+    - I have left Django-REST-framework's DefaultRouter explorer view enabled,
     in case you want to explore the API. You can find direct links in [the links section](#links)
 8. If using Django, you must use Django and/or Django REST Framework's Class-Based Views.
     - See the `risks/api.py` file, where I used Django REST framework Viewsets.
@@ -204,7 +208,7 @@ Then the script will:
 
 * run pipenv install
 * create an AWS db-instance through the cli
-* ping the database (through aws rds describe-db-instances) to check if the endpoint is       available
+* ping the database (through `aws rds describe-db-instances`) to check if the endpoint is       available
 * when ready, it will proceed to deploy with zappa
 * once deployed, it will migrate and create some sample risk policies to display
 
@@ -224,7 +228,7 @@ Same as before, setup `~/.aws/credentials` appropriately. Then run `deploy/docke
 
 This script will do the following:
 
-    $ docker-machine create --driver amazonec2 --amazonec2-open-port 8000 --amazonec2-region us-east-2 britecore-app
+    $ docker-machine create --driver amazonec2 --amazonec2-open-port 80 --amazonec2-region us-east-2 britecore-app
 
 Connect the machine as the active host:
 
@@ -256,7 +260,7 @@ To take down the app:
 
 Thank you for taking the time to review my project.
 
-This have enjoyed creating this quite a bit. Even though I used technologies I'm very familiar with (Django, Django-REST-Framework), I used some others that I did not have a lot of experience  with (Vue, AWS) and some that are entirely new to me (Zappa is my new favorite toy!).
+I have thoroughly enjoyed working on this project. Even though I used technologies I'm very familiar with (Django, Django-REST-Framework), I had the chance to work with some other technologies that I did not have a lot of experience with (Vue, AWS); and some that are entirely new to me (Zappa is my new favorite toy!).
 
 Once again, thank you for your time.
 
