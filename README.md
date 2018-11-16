@@ -1,4 +1,4 @@
-# Denis Angulo's britecore application project
+# Denis Angulo's BriteCore project submission
 
 ## TOC<a name="toc"></a>
 
@@ -65,7 +65,7 @@ http://18.191.189.208/api/v1.0/
 
 ## My approach<a name="approach"></a>
 
-I decided to use Django with Django Rest Framework, as it is an incredibly powerful tool for API creation.
+I decided to use Django with Django-REST-Framework, as it is an incredibly powerful tool for API creation.
 
 The tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model, and a FieldType model, then relating the FieldType to the RiskType via a foreign key. They're arranged as follows:
 
@@ -78,7 +78,7 @@ FieldType model has:
 
 - `name` field (CharField).
 - `data_type` field, IntegerField with choices.
-- `help_text` field, CharField (seemed appropriate as these will emulate form fields)
+- `help_text` field, CharField (seemed appropriate as these will emulate form fields).
 - `number_of_fields`, convenience field for Enum types. I'm well aware this is not the best approach to having Enums with multiple form fields (a custom model field using MultiWidget is the way to go, in my opinion). But, since I implemented all my forms with JavaScript (Vue.js, more precisely), MultiWidget was not an option. This approach seemed to offer the best benefits for the scope and time constraints of this project.
 - `risk` field, not-required, nullable foreign key field to the RiskType model.
 
