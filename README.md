@@ -14,6 +14,7 @@
     - [Before deploying](#before-deploying)
         - [Configuring AWS cli](#configure-aws-cli)
         - [Pipenv](#configure-pipenv)
+        - [Additional deployment notes](#addtl-deployment-notes)
     - [Deploy to AWS-Lambda](#deploy-aws-lambda)
     - [Deploy to AWS-EC2](#deploy-aws-ec2)
     - [Un-deploy](#undeploy)
@@ -165,7 +166,6 @@ Create a dir in ~/.aws/credentials with the following structure:
 in order to not have to enter them for every call to aws-cli. You will also need to update 
 `deploy/zappa_settings_template` "vpc_config, to contain your own `SubnetIds` and `SecurityGroupIds`
 
-
 #### Pipenv<a name="configure-pipenv"></a>
 
 This project requires pipenv to deploy, so please install pipenv. Quoting the official docs:
@@ -187,6 +187,10 @@ If all else fails, you could do a direct download:
     $ curl https://raw.githubusercontent.com/kennethreitz/pipenv/master/get-pipenv.py | python
 
 Keep in mind that some distributions alias python 2 as python, and python3 for python 3.
+
+#### Additional deployment notes<a name="addtl-deployment-notes"></a>
+
+Besides the dependencies above, the scripts make heavy use of [gnu sed](https://www.gnu.org/software/sed/) and [gnu grep](https://www.gnu.org/software/grep/). Remember that if any of the scripts fail to run, you can just run the commands manually to deploy.
 
 [Back to TOC](#toc)
 
