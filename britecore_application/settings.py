@@ -26,7 +26,7 @@ SECRET_KEY = 'Zy/KXWW+9zIKkIbrcEYmDjdvqgDgE6BvXGEbmwbreQBnax7tlt0HqDpsUkvckP6jLQ
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0', '.amazonaws.com']
+ALLOWED_HOSTS = ['localhost', '0.0.0.0']
 
 
 # Application definition
@@ -84,13 +84,12 @@ DATABASES = {
     'default': {
         'ENGINE': os.getenv("SQL_ENGINE", 'django.db.backends.sqlite3'),
         'NAME': os.getenv('SQL_DB', os.path.join(BASE_DIR, 'db.sqlite3')),
-        'USER': os.getenv('SQL_USER', 'user'),
+        'USER': os.getenv('SQL_USER', 'risks_dbuser'),
         'PASSWORD': os.getenv('SQL_PASSWORD', 'password'),
         'HOST': os.getenv('SQL_HOST', 'localhost'),
         'PORT': os.getenv('SQL_PORT', '5432'),
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -128,6 +127,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = 'static'
 
 CORS_ORIGIN_ALLOW_ALL = True
