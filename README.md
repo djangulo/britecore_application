@@ -19,14 +19,15 @@ This project was built with the following technologies:
     - [AWS Lambda](#aws-lambda)
     - [AWS EC2 (with docker)](#aws-ec2)
 - [Approach](#approach)
-    - [Approach deliverables](#approach-deliverables)
-- [Deployment](#deployemnt)
+- [Deliverable summary](#deliverables)
+- [Deployment](#deployment)
     - [Before deploying](#before-deploying)
         - [Configuring AWS cli](#configure-aws-cli)
         - [Pipenv](#configure-pipenv)
     - [Deploy to AWS-Lambda](#deploy-aws-lambda)
     - [Deploy to AWS-EC2](#deploy-aws-ec2)
-- [Deliverable summary](#deliverables)
+    - [Un-deploy](#undeploy)
+
 
 ## Links to the deployed version<a name="links"></a>
 
@@ -93,9 +94,9 @@ I understand this is a concept project, but I had to fully implement the descrip
 2. Link(s) to the deployed version of your project.
     - See [links](#links)
 3. Bonus points if you also orchestrate the launch environment in AWS using CloudFormation.
-    - I did not see the need of orchestrating the creation of say, an EC2 instance when the AWS-lambda deployment is serverless. If you would accept it, I would like to offer the [docker deployment](#deploy-docker) instead.
+    - I did not see the need of orchestrating the creation of say, an EC2 instance when the AWS-lambda deployment is serverless. If you would accept it, I would like to offer the [docker deployment](#deploy-aws-ec2) instead.
 4. Mega bonus points if you host the app in AWS Lambda using Zappa or AWS ECS using AWS Fargate.
-    - See [the AWS-Lambda deployment section](#deploy-lambda)
+    - See [the AWS-Lambda deployment section](#deploy-aws-lambda)
 5. A Python file containing the ORM classes for these tables.
     - See `risks/models.py`
     - A copy of the `models.py` file is found in the `deliverables` directory.
@@ -178,7 +179,7 @@ If all else fails, you could do a direct download:
 Keep in mind that some distributions alias python 2 as python, and python3 for python 3.
 
 
-## Deploy to AWS-Lambda<a name="deploy-lambda"></a>
+## Deploy to AWS-Lambda<a name="deploy-aws-lambda"></a>
 
 Once pipenv is installed, is as simple as running the script at `deploy/zappa_deploy.sh`.
 
@@ -198,7 +199,7 @@ Then the script will:
 * when ready, it will proceed to deploy with zappa
 * once deployed, it will migrate and create some sample risk policies to display
 
-## Deploy to AWS EC2 with docker<a name="deploy-docker"></a>
+## Deploy to AWS EC2 with docker<a name="deploy-aws-ec2"></a>
 
 Requirements:
 
@@ -222,7 +223,7 @@ Then run
 
 The instance will be running at the public IP of the docker-machine (you can check with `docker-machine ls`).
 
-## Un-deploy
+## Un-deploy<a name="undeploy"></a>
 
 To take down the app:
 
