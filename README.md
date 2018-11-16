@@ -67,7 +67,7 @@ http://18.191.189.208/api/v1.0/
 
 I decided to use Django with Django Rest Framework, as it is an incredibly powerful tool for API creation.
 
-The tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model and a FieldType model, then relating the FieldType to the RiskType via a foreign key. Their arranged as follows:
+The tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model and a FieldType model, then relating the FieldType to the RiskType via a foreign key. They're arranged as follows:
 
 RiskType model has:
 
