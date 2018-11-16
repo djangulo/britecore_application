@@ -33,7 +33,7 @@
     <p class="text-center">Here is the <a href="#">link to the github repository.</a></p>
     <div id="app" class="container">
       <div class="row">
-        <div class="col-4">
+        <div class="col-6">
             <div class="list-group">  
               <div 
                 class="list-group-item cursor" 
@@ -82,25 +82,37 @@
                       </div>
                       <br>
                     </div>
-                    <input type="text" 
-                    class="form-control" 
-                    placeholder="Help text" 
-                    v-bind="{ id: `new-risk-field-help-${i}` }" 
-                    v-model="newRisk.fields[i].help_text">
+                    <div class="input-group mb3">
+                        <div class="input-group-prepend" v-if="newRisk.fields[i].data_type == 3">
+                            <select class="input-group-text" v-bind="{ id: `new-risk-no-of-fields-${i}` }" name="number_of_fields" v-model="newRisk.fields[i].number_of_fields" placeholder="No. of fields">
+                              <option v-for="k in [1,2,3,4,5,6,7,8,9,10]" v-bind="{ value: k }">${k}</option>
+                            </select>
+                          </div>
+                      <input type="text" 
+                      class="form-control" 
+                      placeholder="Help text" 
+                      v-bind="{ id: `new-risk-field-help-${i}` }" 
+                      v-model="newRisk.fields[i].help_text">
+                    </div>
                   </div>
                   <br>
-                  <button v-if="newRisk.fields" class="btn btn-primary" type="submit" class="button">Submit</button>
+                  <button 
+                    v-if="newRisk.fields" 
+                    class="btn btn-primary" 
+                    type="submit" 
+                    class="button"
+                    v-bind:class="{ disabled: newRisk.name.length === 0 }">Submit</button>
                 </form>
             </div>
         </div>
         <div class="col-6">
-          <div class="card" v-if="fullSelectedRisk">
+          <div class="card" v-if="selectedRisk">
             <div class="card-body">
-              <h5 class="card-title">${ fullSelectedRisk.name }</h5>
-              <p class="card-text">${ fullSelectedRisk.description }</p>
+              <h5 class="card-title">${ selectedRisk.name }</h5>
+              <p class="card-text">${ selectedRisk.description }</p>
             </div>
-            <form>
-              <div class="form-group mb-3" v-for="(field, j) in fullSelectedRisk.fields" :key="j">
+            <form class="form" v-on:submit.prevent="submitFieldForm">
+              <div class="form-group mb-3" v-for="(field, j) in selectedRisk.fields" :key="j">
                   <label v-bind="{ for: `input-${j}` }">${ field.name }</label>
                   <input v-if="field.data_type == 0" type="text" class="form-control" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" >
                   <input v-if="field.data_type == 1" type="number" class="form-control" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" >
@@ -108,32 +120,32 @@
                   <vuejs-datepicker 
                   v-if="field.data_type == 2" 
                   input-class="form-control" 
-                  v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }"></vuejs-datepicker>
-                  <small v-if="field.help_text" v-bind="{ id: `input-${j}-help`}" class="form-text text-muted">${ field.help_text }</small>
-                  <div v-if="field.data_type == 3" type="number" class="form-control" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" >
+                  v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" ></vuejs-datepicker>
+                  <div v-if="field.data_type == 3" v-bind="{ id: `input-${j}`, 'aria-describedby': `input-${j}-label` }" >
+                    <input type="text" v-for="t in field.number_of_fields" class="form-control">
                   </div>
+                  <small v-bind="{ id: `input-${j}-help`}" class="form-text text-muted">${ field.help_text }</small>
               </div>
+              <button 
+              v-if="selectedRisk.fields.length > 0" 
+              class="btn btn-primary disabled" 
+              type="submit">Submit</button> 
             </form>
           </div>
 
       </div>
       </div>
     </div>
-    <div id="single-risk">
-
-    </div>
-    <footer>
-    </footer>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.4/es6-shim.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
   <script src="https://unpkg.com/vuejs-datepicker"></script>
   <script type="text/javascript">
-    const apiRoot = `${document.URL}/api/v1.0`
+    const apiRoot = `${document.URL.replace(/\/$/, "")}/api/v1.0`
     new Vue({
       el: '#app',
       delimiters: ['${', '}'],
@@ -144,15 +156,15 @@
         vuejsDatepicker
       },
       data: {
+        fieldFormOutput: '',
         availableRisks: null,
         selectedRisk: null,
-        fullSelectedRisk: null,
-        enums: [],
         newRisk: {
           name: '',
           description: '',
           fields: [],
         },
+        formFieldValues: {},
         err: ''
       },
       mounted: function() {
@@ -164,23 +176,23 @@
             data_type: 0,
             name: '',
             help_text: '',
+            number_of_fields: 0,
           })
-        },
-        captureEnums: function() {
-          for (let i = 0; i < this.availableRisks.length; i++) {
-            let ems = this.availableRisks[i].fields.filter(f => f.data_type == 3);
-            if (ems.length > 0) {
-              this.enums.push(1);
-            }
-          }
         },
         removeNewRiskField: function(index) {
           this.newRisk.fields = this.newRisk.fields.slice(0, index).concat(this.newRisk.fields.slice(index+1));
         },        
+        submitFieldForm: function() {
+        },  
         submitRiskForm: function() {
-          this.createRisk(this.newRisk);
+          if (this.newRisk.name.length > 0) {
+            this.createRisk(this.newRisk);
+          }
         },
         onRiskSelect: function(risk) {
+          for(let i = 0; i < risk.fields.length; i++){
+            this.formFieldValues[risk.fields[i].name] = null;
+          }
           this.selectedRisk = risk;
           this.getRisk(risk.id);
         },
@@ -189,8 +201,6 @@
             .get(`${apiRoot}/risks/`)
             .then(response => {
               this.availableRisks = response.data;
-              this.captureEnums();
-
             })
             .catch(err => this.err = err)
         },
@@ -198,8 +208,8 @@
           axios
             .get(`${apiRoot}/risks/${riskId}/`)
             .then(response => {
-              this.fullSelectedRisk = response.data;
-              this.formFields = this.fullSelectedRisk.fields;
+              this.selectedRisk = response.data;
+              this.formFields = this.selectedRisk.fields;
             })
             .catch(err => this.err = err)
         },
@@ -220,7 +230,6 @@
           axios
             .delete(`${apiRoot}/risks/${risk.id}/`)
             .then(response => {
-              this.fullSelectedRisk = null;
               this.selectedRisk = null;
               this.getRisks();
             })

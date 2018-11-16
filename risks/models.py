@@ -1,5 +1,5 @@
-from rest_framework.authtoken.models import Token
 from django.core.exceptions import ValidationError
+from django.core.validators import MaxValueValidator
 from django.db import models, transaction, connection
 from django.utils.translation import gettext_lazy as _
 from django.utils.text import slugify
@@ -12,53 +12,14 @@ FIELD_TYPE_CHOICES = (
     (3, _('enum')),
 )
 
-def underslugify(string):
-    return slugify(string).replace('-', '_')
-
-# def create_sql_table(risk, fields, app_name='risks'):
-#     columns = ""
-#     for field in fields:
-#         if field.data_type == 0:
-#             columns += 
-#     pass
-        
-
-
 
 class RiskType(models.Model):
     """Represents a risk type."""
-    name = models.CharField(max_length=255, blank=False, unique=True)
+    name = models.CharField(max_length=255, blank=False)
     description = models.CharField(max_length=1000, blank=True)
 
     def __str__(self):
         return self.name
-
-    def add_field(self, field):
-        """
-        Adds a field to the objects field set (fields).
-
-        Keyword arguments:
-        field -- field pk or FieldType instance to add
-        """
-        if isinstance(field, int):
-            try:
-                field = FieldType.objects.get(pk=field)
-            except FieldType.DoesNotExist:
-                raise FieldType.DoesNotExist(
-                    'The primary key passed did not return an object, key: '
-                    '%s' % field
-                )
-        if isinstance(field, str):
-            try:
-                field = FieldType.objects.get(pk=int(field))
-            except ValueError:
-                raise ValidationError('Invalid key passed: %s' % field)
-            except FieldType.DoesNotExist:
-                raise FieldType.DoesNotExist(
-                    'The primary key passed did not return an object, key: '
-                    '%s' % field
-                )
-        self.fields.add(field)
 
     def bulk_add_fields(self, fields):
         """Add many field types in bulk."""
@@ -72,57 +33,19 @@ class RiskType(models.Model):
                     valid_fields.append({
                         'name': field['name'],
                         'data_type': field['data_type'],
+                        'help_text': field.get('help_text', ''),
+                        'number_of_fields': field.get('number_of_fields', 1),
                     })
-            for field in valid_fields:
-                if FieldType.objects.filter(
-                    name=field['name'],
-                    data_type=field['data_type'],
-                ).exists():
-                    existing_fields.append(FieldType.objects.get(
-                        name=field['name'],
-                        data_type=field['data_type'],
-                    ))
-                else:
-                    to_be_created_fields.append(field)
             created_fields = FieldType.objects.bulk_create(
-                [FieldType(**field) for field in to_be_created_fields]
+                [FieldType(**field) for field in valid_fields]
             )
-            existing_fields.extend(created_fields)
             with transaction.atomic():
-                self.fields.add(*existing_fields)
+                self.fields.add(*created_fields)
         except TypeError:
             raise ValidationError(
                 'Invalid type; arg passed is not iterable: %(arg)s' % {
                     'arg': type(fields),
                 })
-
-    def remove_field(self, field):
-        """
-        Removes a field from the objects field set (fields).
-
-        Keyword arguments:
-        field -- field pk, str or FieldType instance to remove
-        """
-        if isinstance(field, int):
-            try:
-                field = FieldType.objects.get(pk=field)
-            except FieldType.DoesNotExist:
-                raise FieldType.DoesNotExist(
-                    'The primary key passed did not return an object, key: '
-                    '%s' % field
-                )
-        if isinstance(field, str):
-            try:
-                field = FieldType.objects.get(pk=int(field))
-            except ValueError:
-                raise ValidationError('Invalid key passed: %s' % field)
-            except FieldType.DoesNotExist:
-                raise FieldType.DoesNotExist(
-                    'The primary key passed did not return an object, key: '
-                    '%s' % field
-                )
-        if field in self.fields.all():
-            self.fields.remove(field)
 
 
 class FieldType(models.Model):
@@ -131,14 +54,19 @@ class FieldType(models.Model):
     data_type = models.IntegerField(choices=FIELD_TYPE_CHOICES, default=0,
                                     blank=False)
     help_text = models.CharField(max_length=255, blank=True)
-    risk = models.ManyToManyField(
+    number_of_fields = models.PositiveSmallIntegerField(
+        blank=True,
+        default=1,
+        help_text=_('Enum (data_type==3) only. Number of fields to display'),
+        validators=[MaxValueValidator(10)],
+    )
+    risk = models.ForeignKey(
         RiskType,
         related_name='fields',
         blank=True,
+        null=True,
+        on_delete=models.CASCADE,
     )
-
-    class Meta:
-        unique_together = ('name', 'data_type')
 
     def __str__(self):
         return '%s, type %s' % (self.name, self.get_data_type_display())

@@ -7,7 +7,7 @@ class FieldTypeSerializer(serializers.ModelSerializer):
     """Serializer for FieldType model."""
     class Meta:
         model = models.FieldType
-        fields = ('id', 'name', 'data_type', 'help_text')
+        fields = ('id', 'name', 'data_type', 'help_text', 'risk', 'number_of_fields')
 
 
 class RiskTypeSerializer(serializers.ModelSerializer):
