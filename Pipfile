@@ -7,9 +7,9 @@ name = "pypi"
 django = "*"
 djangorestframework = "*"
 gunicorn = "*"
-"psycopg2-binary" = "*"
 django-cors-headers = "*"
 zappa = "*"
+"psycopg2" = "*"
 
 [dev-packages]
 "flake8" = "*"
