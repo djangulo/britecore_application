@@ -1,7 +1,5 @@
 # Denis Angulo's britecore application project
 
-
-
 ## TOC<a name="toc"></a>
 
 - [About](#about)
@@ -24,7 +22,9 @@
 
 Hello, and welcome to my application project.
 
-This was was built with the following technologies:
+This is Denis Angulo's project submission for the Software Developer (Product Development) postion (posted [here](https://engineering-application.britecore.com/do/product-engineer-western-hemisphere)).
+
+This project was built with the following technologies:
 
 * django
 * django-rest-framework
@@ -71,16 +71,16 @@ The tables were modeled rather straightforwardly (by Django standards), by creat
 
 RiskType model has:
 
-- A `name` field (CharField)
-- A `description` field (CharField)
+- A `name` field (CharField).
+- A `description` field (CharField).
 
 FieldType model has:
 
-- `name` field (CharField)
-- `data_type` field, IntegerField with choices
+- `name` field (CharField).
+- `data_type` field, IntegerField with choices.
 - `help_text` field, CharField (seemed appropriate as these will emulate form fields)
 - `number_of_fields`, convenience field for Enum types. I'm well aware this is not the best approach to having Enums with multiple form fields (a custom model field using MultiWidget is the way to go, in my opinion). But, since I implemented all my forms with JavaScript (Vue.js, more precisely), MultiWidget was not an option. This approach seemed to offer the best benefits for the scope and time constraints of this project.
-- `risk` field, not-required, nullable foreign key field to the RiskType model
+- `risk` field, not-required, nullable foreign key field to the RiskType model.
 
 You would notice that neither the RiskType or FieldType's names are unique, this was by design, since the frontend tightly couples the FieldType to the RiskType on creation. This prevents accidentally deleting some other RiskType's fields when deleting any RiskType instance.
 
