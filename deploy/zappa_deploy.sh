@@ -13,13 +13,13 @@ sed "s@CHANGEME@$SQL_PASSWORD@g" deploy/rds-instance-template > deploy/rds-insta
 aws rds create-db-instance --cli-input-json file://deploy/rds-instance.json
 SQL_HOST=$(aws rds describe-db-instances \
     | grep -i Address \
-    | sed 's@\: @\n@g' \
+    | sed "s@\: @\n@g" \
     | grep aws \
     | sed "s@,@@g")
 while [ $SQL_HOST -n ]; do
     SQL_HOST=$(aws rds describe-db-instances \
     | grep -i Address \
-    | sed 's@\: @\n@g' \
+    | sed "s@\: @\n@g" \
     | grep aws \
     | sed "s@,@@g")
     echo "waiting for RDS host address to be ready"
