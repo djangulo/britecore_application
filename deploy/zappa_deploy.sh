@@ -16,15 +16,14 @@ SQL_HOST=$(aws rds describe-db-instances \
     | sed "s@\: @\n@g" \
     | grep aws \
     | sed "s@,@@g")
+echo "waiting for RDS host address to be ready"
 while [ $SQL_HOST -n ]; do
     SQL_HOST=$(aws rds describe-db-instances \
     | grep -i Address \
     | sed "s@\: @\n@g" \
     | grep aws \
     | sed "s@,@@g")
-    echo "waiting for RDS host address to be ready"
     sleep 1
-
 done
 sed "s@CHANGESECRETKEY@$SECRET_KEY@g" deploy/zappa_settings_template \
     | sed "s@DBPASS@$SQL_PASSWORD@g" \
@@ -37,13 +36,13 @@ db_status=$(aws rds describe-db-instances \
     | sed "s@: @\n@g" \
     | grep -i available \
     | sed "s@,@@g")
+echo "waiting for RDS database to be available"
 while [ $db_status != "available" ]; do
     db_status=$(aws rds describe-db-instances \
     | grep -i DBInstanceStatus \
     | sed "s@: @\n@g" \
     | grep -i available \
     | sed "s@,@@g")
-    echo "waiting for RDS database to be available"
     sleep 0.1
 done
 pipenv run zappa manage prod migrate
