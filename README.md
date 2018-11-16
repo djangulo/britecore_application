@@ -86,6 +86,10 @@ The full implementation (what is implied by the description) is that this will b
 
 I understand this is a concept project, but I had to fully implement the description above, I would create an AWS DynamoDB instance (or any other NOSQL database), with endpoints that accept AJAX calls from our Vue instance. NOSQL offers more flexibility when it comes to dynamic models like this one (SQL schemas can be rather rigid, specially if scaled).
 
+[Back to TOC](#toc)
+
+---
+
 ## Deliverables<a name="deliverables"></a>
 
 1. A README that describes your approach and how to deploy your project.
@@ -156,6 +160,7 @@ Create a dir in ~/.aws/credentials with the following structure:
 in order to not have to enter them for every call to aws-cli. You will also need to update 
 `deploy/zappa_settings_template` "vpc_config, to contain your own `SubnetIds` and `SecurityGroupIds`
 
+
 #### Pipenv<a name="configure-pipenv"></a>
 
 This project requires pipenv to deploy, so please install pipenv. Quoting the official docs:
@@ -178,6 +183,9 @@ If all else fails, you could do a direct download:
 
 Keep in mind that some distributions alias python 2 as python, and python3 for python 3.
 
+[Back to TOC](#toc)
+
+---
 
 ## Deploy to AWS-Lambda<a name="deploy-aws-lambda"></a>
 
@@ -198,6 +206,10 @@ Then the script will:
 * ping the database (through aws rds describe-db-instances) to check if the endpoint is       available
 * when ready, it will proceed to deploy with zappa
 * once deployed, it will migrate and create some sample risk policies to display
+
+[Back to TOC](#toc)
+
+---
 
 ## Deploy to AWS EC2 with docker<a name="deploy-aws-ec2"></a>
 
@@ -223,6 +235,10 @@ Then run
 
 The instance will be running at the public IP of the docker-machine (you can check with `docker-machine ls`).
 
+[Back to TOC](#toc)
+
+---
+
 ## Un-deploy<a name="undeploy"></a>
 
 To take down the app:
@@ -230,3 +246,6 @@ To take down the app:
 * If deployed with AWS/Zappa, run `pipenv run zappa undeploy -y`
 * If you used Docker, run `docker-machine rm -y britecore-app`
 
+[Back to TOC](#toc)
+
+---
