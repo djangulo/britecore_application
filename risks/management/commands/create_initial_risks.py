@@ -40,7 +40,8 @@ sample_fields = [
     {
         'name': 'Dependents',
         'data_type': 3,
-        'help_text': 'Comma separated list of each one of your dependents (i.e. children, parents, etc.).'
+        'help_text': 'Comma separated list of each one of your dependents (i.e. children, parents, etc.).',
+        'number_of_fields': 8,
     },
     {
         'name': 'Age',
@@ -82,26 +83,22 @@ class Command(BaseCommand):
             else:
                 self.stdout.write(" %s exists, skipping..." % r.name, ending="\n")
             self.stdout.flush()
+        employee = RiskType.objects.get(name__iexact='Employee risk policy')
+        vehicle = RiskType.objects.get(name__iexact='Vehicle risk policy')
         for field in sample_fields:
-            f, c = FieldType.objects.get_or_create(**field)
+            if field['name'] in (
+                'First name',
+                'Last name',
+                'Employee code',
+                'Birth date',
+                'Dependents',
+            ):
+                f, c = FieldType.objects.get_or_create(risk=employee, **field)
+            else:
+                f, c = FieldType.objects.get_or_create(risk=vehicle, **field)
             if c:
                 self.stdout.write(" Creating field %s..." % f.name, ending="")
                 self.stdout.write(self.style.SUCCESS(" OK"))
             else:
                 self.stdout.write(" %s exists, skipping..." % f.name, ending="\n")
             self.stdout.flush()
-        employee = RiskType.objects.get(name__iexact='Employee risk policy')
-        vehicle = RiskType.objects.get(name__iexact='Vehicle risk policy')
-        employee.fields.add(
-            FieldType.objects.get(name__iexact='First name'),
-            FieldType.objects.get(name__iexact='Last name'),
-            FieldType.objects.get(name__iexact='Employee code'),
-            FieldType.objects.get(name__iexact='Birth date'),
-        )
-        vehicle.fields.add(
-            FieldType.objects.get(name__iexact='Owner'),
-            FieldType.objects.get(name__iexact='Vehicle type'),
-            FieldType.objects.get(name__iexact='Vehicle year'),
-            FieldType.objects.get(name__iexact='Purchase date'),
-            FieldType.objects.get(name__iexact='Chassis ID'),
-        )
