@@ -7,8 +7,11 @@ This project was built with the following technologies:
 * django
 * django-rest-framework
 * Vue.js
+* Amazon Web Services
 * aws-cli
+* Docker
 * pipenv
+* Bootstrap4
 
 ## TOC<a name="toc"></a>
 
@@ -29,12 +32,24 @@ This project was built with the following technologies:
 
 #### AWS-Lambda<a name="aws-lambda"></a>
 
+Main page:
+
 https://bkw3yst1yb.execute-api.us-east-2.amazonaws.com/prod
+
+API root view:
+
+https://bkw3yst1yb.execute-api.us-east-2.amazonaws.com/prod/api/v1.0/
 
 
 #### AWS EC2<a name="aws-ec2"></a>
 
+Main page:
+
 http://18.191.189.208
+
+API root view:
+
+http://18.191.189.208/api/v1.0/
 
 
 [Back to TOC](#toc)
@@ -43,7 +58,7 @@ http://18.191.189.208
 
 ## My approach<a name="approach"></a>
 
-I decided to use Django Rest Framework, as it keeps it pretty simple to create a maintainable API.
+I decided to use Django with Django Rest Framework, as it keeps it pretty simple to create a maintainable API.
 
 I modeled the two tables rather straightforwardly (by Django standards), by creating a RiskType model and a FieldType model, and relating the FieldType to the RiskType via a foreign key. Their arranged as follows:
 
@@ -60,7 +75,9 @@ FieldType model has:
 - `number_of_fields`, convenience field for Enum types. I'm well aware this is not the best approach to having Enums with multiple form fields (a custom model field using MultiWidget is the way to go, in my opinion). But, since I implemented all my forms with JavaScript (Vue.js, more precisely), MultiWidget was not an option. This approach seemed to offer the best benefits for the scope and time constraints of this project.
 - `risk` field, not-required, nullable foreign key field to the RiskType model
 
-I left the foreign key un-required (blank=True) and nullable, that way It allows me to hit the API and create FieldType objects without having to attach it to a RiskType object.
+You would notice that neither the RiskType or FieldType's names are unique, this was by design, since in the frontend I'm tighly coupling the FieldType to the RiskType on creation. This prevents accidentally deleting some other RiskType's fields when deleting any RiskType instance.
+
+I left the foreign key un-required (blank=True) and nullable, that way It allows me to hit the API and create FieldType objects without having to attach it to a RiskType object. I also added a `bulk_add_fields` convenience method to the RiskType model, to get-or-create an incoming field set.
 
 For the frontend, I embedded a Vue.js instance into a TemplateView (instanced directly in `britecore_application/urls.py`), and performed all API calls and form rendering through the Vue app.
 
@@ -68,19 +85,54 @@ The full implementation (what is implied by the description) is that this will b
 
 I understand this is a concept project, but I had to fully implement the description above, I would create an AWS DynamoDB instance (or any other NOSQL database), with endpoints that accept AJAX calls from our Vue instance. NOSQL offers more flexibility when it comes to dynamic models like this one (SQL schemas can be rather rigid, specially if scaled).
 
-#### Deliverables<a name="approach-deliverables"></a>
+## Deliverables<a name="deliverables"></a>
 
-
-- README that describes approach and deployment
+1. A README that describes your approach and how to deploy your project.
     - You're reading it!
-- Links to the deployed version of project:
+    - For details about deployment, see the [deployment](#deployment) section.
+2. Link(s) to the deployed version of your project.
     - See [links](#links)
-- Bonus points for orchestrating with AWS Cloudformation
+3. Bonus points if you also orchestrate the launch environment in AWS using CloudFormation.
     - I did not see the need of orchestrating the creation of say, an EC2 instance when the AWS-lambda deployment is serverless. If you would accept it, I would like to offer the [docker deployment](#deploy-docker) instead.
-- Mega Bonus points for hosting in AWS lambda with Zappa
+4. Mega bonus points if you host the app in AWS Lambda using Zappa or AWS ECS using AWS Fargate.
     - See [the AWS-Lambda deployment section](#deploy-lambda)
+5. A Python file containing the ORM classes for these tables.
+    - See `risks/models.py`
+    - A copy of the `models.py` file is found in the `deliverables` directory.
+6. An entity relationship diagram, which depicts the tables and their relationship to one another.
+    - See below
+    - A copy of the `ERD.png` file is found on the `deliverables` directory.
+    <p align="center">
+    <img src="ERD.png" alt="Employee relationship diagram"/>
+    </p>
+7. A well-tested REST API written in Python.
+    - Tests are found in `risks/tests/test_api.py`.
+    - I have left DRF's DefaultRouter explorer view enabled,
+    in case you want to explore the API. You can find direct links in [the links section](#links)
+8. If using Django, you must use Django and/or Django REST Framework's Class-Based Views.
+    - See the `risks/api.py` file, where I used Django REST framework Viewsets.
+9. Create a single page that hits your risk type API endpoint(s) and displays all of the fields to the user in 
+a form. Be sure to display at least one field of each type on the page. Don't worry about submitting the 
+form.
+    - It's the main page of the application (see [links](#links). The column on the left allows you to:
+        - Select one of the existing Risk Types
+        - Create a new Risk Type
+            - Click the "Add field" button to add fields
+            - Then
+                - Select the field type
+                - Add a name for the field
+                - Add help text for the field
+                - (ENUM only) add the number of inputs to display
+10. Fields should use appropriate widgets based on their type. text fields should display as text boxes, date 
+fields should use date pickers, and so on.
+    - Please click any of the sample Risk Types to see the field forms implemented.
+11. Bonus points if you come up with an elegant response for when users click on an unactivated form submit 
+button.
+    - I'm afraid it's not as elegant as I'd like, just a disabled button.
+12. Mega bonus points for handling form submission.
+    - The actual risk information form submission is not handled, as the project is not fully implemented.
+    - Form submission for risk creation *is* implemented.
 
-For details on deployment, see the [deployment](#deployment) section.
 
 [Back to TOC](#toc)
 
