@@ -261,4 +261,8 @@ This have enjoyed creating this quite a bit. Even though I used technologies I'm
 Once again, thank you for your time.
 
 Kind regards,
-Denis Angulo
+
+\- Denis Angulo
+
+[Back to TOC](#toc)
+
