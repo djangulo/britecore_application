@@ -1,0 +1,97 @@
+BriteCore Engineering Application
+The link to this test will expire. We recommend that you save this page locally.
+
+Product Development Hiring Project
+This outlines a recent problem we ran into and came up with a development solution for. We'd like to see how 
+you would handle it. What is most important is gaining some insight into your development process and seeing 
+how you work.
+
+Background
+BriteCore is a web-based platform insurance companies use to manage their business. Insurance is a form of 
+risk management. Risks are anything that someone could incur a loss on. BriteCore has historically worked 
+primarily with property-based risks (homes, farms, churches, etc.).
+
+Problem
+Since BriteCore was created to work mostly with property-based insurance, the data model is pretty rigid. 
+The data model assumes that all risks are properties and have addresses. This makes it difficult for 
+BriteCore to work with different forms of insurance like Automobile Policies, Cyber Liability Coverage 
+(protection against hacking), or Prize Insurance (if someone gets a $1 million hole-in-one prize at a golf 
+tournament, the golf course doesn't pay it, they have an insurance policy to cover them).
+
+Primary Goal
+In a github repo, we would like to see you come up with a solution that allows insurers to define their own 
+custom data model for their risks. There should be no database tables called automobiles, houses, or prizes. 
+Instead, insurers should be able to create their own risk types and attach as many different fields as they 
+would like.
+
+Fields are bits of data like first name, age, zip code, model, serial number, Coverage A limit, or prize 
+dollar amount. Basically any data the carrier would want to collect about the risk. Fields can also be of 
+different types, like text, date, number, currency, and so forth.
+
+Deliverables will be:
+
+- A README that describes your approach and how to deploy your project.
+- Link(s) to the deployed version of your project.
+- Bonus points if you also orchestrate the launch environment in AWS using CloudFormation.
+- Mega bonus points if you host the app in AWS Lambda using Zappa or AWS ECS using AWS Fargate.
+Data
+For the data layer, model the risk types and how the generic fields and field types would relate to these 
+risk types. Field types must include text, number, date, or enum (where there are multiple potential options 
+but only one choice can be made).
+
+Deliverables will be:
+
+- A Python file containing the ORM classes for these tables.
+- An entity relationship diagram, which depicts the tables and their relationship to one another.
+
+Backend
+For the backend, create two API endpoints. One that returns a single risk type and one that returns a list 
+of all risk types. Include all of the risk types' fields, field types, and any other data about the fields. 
+This is your chance to show that you know how to create clean REST APIs.
+
+Deliverables will be:
+
+- A well-tested REST API written in Python.
+- If using Django, you must use Django and/or Django REST Framework's Class-Based Views.
+
+
+
+Frontend
+The frontend is all about collecting information as it relates to these generic models.
+
+Deliverables will be:
+
+- Create a single page that hits your risk type API endpoint(s) and displays all of the fields to the user in 
+a form. Be sure to display at least one field of each type on the page. Don't worry about submitting the 
+form.
+- Fields should use appropriate widgets based on their type. text fields should display as text boxes, date 
+fields should use date pickers, and so on.
+- Bonus points if you come up with an elegant response for when users click on an unactivated form submit 
+button.
+- Mega bonus points for handling form submission.
+Questions
+For questions, please use pd-hires@britecore.com.
+
+Finished?
+When you're done with the above project, please send us an email at pd-hires@britecore.com with the 
+following deliverables:
+
+Links to your GitHub repo with your solution
+The Python file called quiz.py that is your answer to the debugging quiz
+A link to a hosted instance of your application
+Your updated resume in PDF (preferred) or DOCX format
+Evaluation
+If you'd like to do very well on this project, we'll hand you the categories we utilize to score candidates! 
+They are:
+
+Business requirements are met or exceeded
+All twelve deliverables are accounted for
+Documentation in clearly written English
+Django is PEP8 compliant and avoids antipatterns such as local_settings.
+Use of Class-Based Views
+Vue.js contains appropriate ViewModels and DOM interactions
+CSS Framework utilized correctly
+Test coverage is complete and meaningful
+Deployment is fully scripted
+Communication is positive and respectful
+Thank you for your time. We are excited to review your project!
