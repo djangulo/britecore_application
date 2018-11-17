@@ -10,6 +10,7 @@ gunicorn = "*"
 django-cors-headers = "*"
 zappa = "*"
 "psycopg2" = "*"
+"boto3" = "*"
 
 [dev-packages]
 "flake8" = "*"
