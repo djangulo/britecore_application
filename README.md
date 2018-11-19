@@ -88,7 +88,7 @@ The full implementation (what is implied by the description), is that this will 
 
 This is a conceptual project, however, I had to fully implement the description above, I would do so by creating an AWS DynamoDB instance (or any other NOSQL database), with endpoints that accept requests from our API (Django). The Vuex store would act as a mid-point, to stage changes before sending them in bulk to the Django API (which would in turn parse them and forward them to the actual NOSQL endpoint). NOSQL offers more flexibility when it comes to dynamic models like the one described above (SQL schemas can be rather rigid, specially if scaled).
 
-For [deployment](deployment), several steps had to be covered:
+For [deployment](#deployment), several steps had to be covered:
 
 - The PostgreSQL database, the API and the front-end would all end up in different locations
     - It was planned like this in order to leverage the convenience of Zappa (and the power of AWS)
