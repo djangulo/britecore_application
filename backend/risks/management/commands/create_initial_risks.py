@@ -64,7 +64,7 @@ sample_fields = [
     },
     {
         'name': 'Vehicle type',
-        'data_type': 1,
+        'data_type': 3,
         'help_text': 'Please select the vehicle type',
         'display_order': 3,
         'enum_options': 'Sedan,Hatchback,SUV,Pickup,Sports car,Luxury,Commercial'
