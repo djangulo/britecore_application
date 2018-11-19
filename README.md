@@ -121,7 +121,7 @@ I understand this is a concept project, but if I had to fully implement the desc
     - See below
     - A copy of the `ERD.png` file is found on the `deliverables` directory.
     <p align="center">
-    <img src="ERD.png" alt="Employee relationship diagram"/>
+    <img src="deliverables/ERD.png" alt="Employee relationship diagram"/>
     </p>
 7. A well-tested REST API written in Python.
     - Tests are found in `risks/tests/test_api.py`.
