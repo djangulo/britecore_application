@@ -4,8 +4,7 @@
 
 - [About](#about)
 - [Links to deployed versions](#links)
-    - [AWS Lambda](#aws-lambda)
-    - [AWS EC2 (with docker)](#aws-ec2)
+    - [AWS Lambda / S3](#aws-lambda)
 - [Approach](#approach)
 - [Deliverable summary](#deliverables)
 - [Deployment](#deployment)
@@ -37,7 +36,7 @@ This project was built with the following technologies:
 
 ## Links to the deployed version<a name="links"></a>
 
-#### AWS-Lambda<a name="aws-lambda"></a>
+#### AWS-Lambda / S3<a name="aws-lambda"></a>
 
 Main page:
 
