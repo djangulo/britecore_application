@@ -1,11 +1,11 @@
 {
     "DBName": "postgres",
-    "DBInstanceIdentifier": "britecore-app-db",
+    "DBInstanceIdentifier": "britecore-app-rds-db",
     "AllocatedStorage": 5,
     "DBInstanceClass": "db.t2.small",
     "Engine": "postgres",
     "MasterUsername": "postgres",
-    "MasterUserPassword": "1uEMkYzb4pRxkbAM86dWZEwwlYMHrXEeI0oktW7ebQECvc5a7E",
+    "MasterUserPassword": "",
     "AvailabilityZone": "us-east-2a",
     "Port": 5432,
     "EngineVersion": "10.5",

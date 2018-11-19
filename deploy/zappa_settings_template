@@ -10,6 +10,39 @@
             "SECRET_KEY": "DEVSECRETKEY"
         }
     },
+    "prod_old": {
+        "aws_region": "us-east-2",
+        "django_settings": "britecore_application.settings_prod",
+        "profile_name": "default",
+        "project_name": "britecore_application",
+        "runtime": "python3.6",
+        "s3_bucket": "britecore-application-bucket",
+        "exclude": [
+            "deliverables",
+            "frontend",
+            "deploy",
+            "*.sh",
+            "*.gz",
+            "*.rar",
+            "*.yml",
+            "*.yaml",
+            "*.md",
+            "*.txt"
+        ],
+        "aws_environment_variables": {
+            "SECRET_KEY": "CHANGESECRETKEY",
+            "SQL_PASSWORD": "DBPASS",
+            "SQL_USER": "postgres",
+            "SQL_DB": "postgres",
+            "SQL_ENGINE": "django.db.backends.postgresql",
+            "SQL_HOST": "DBHOST",
+            "SQL_PORT": "5432"
+        },
+        "vpc_config": {
+            "SubnetIds": ["subnet-13b49d5e", "subnet-29d02353", "subnet-73229a1b"],
+            "SecurityGroupIds": [ "sg-4681172d" ]
+        }
+    },
     "prod": {
         "aws_region": "us-east-2",
         "django_settings": "britecore_application.settings_prod",
@@ -17,13 +50,25 @@
         "project_name": "britecore_application",
         "runtime": "python3.6",
         "s3_bucket": "britecore-application-bucket",
+        "exclude": [
+            "deliverables",
+            "frontend",
+            "deploy",
+            "*.sh",
+            "*.gz",
+            "*.rar",
+            "*.yml",
+            "*.yaml",
+            "*.md",
+            "*.txt"
+        ],
         "aws_environment_variables": {
             "SECRET_KEY": "CHANGESECRETKEY",
             "SQL_PASSWORD": "DBPASS",
             "SQL_USER": "postgres",
             "SQL_DB": "postgres",
             "SQL_ENGINE": "django.db.backends.postgresql",
-            "SQL_HOST": DBHOST,
+            "SQL_HOST": "DBHOST",
             "SQL_PORT": "5432"
         },
         "vpc_config": {
