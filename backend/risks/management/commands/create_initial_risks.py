@@ -43,7 +43,7 @@ sample_fields = [
         'data_type': 3,
         'help_text': 'Please select your gender',
         'display_order': 4,
-        'enum_options': 'male,female,rather not say'
+        'enum_options': 'Male,Female,Rather not say'
     },
     {
         'name': 'Owner',
@@ -65,8 +65,9 @@ sample_fields = [
     {
         'name': 'Vehicle type',
         'data_type': 1,
-        'help_text': '0: hatchback, 1: sedan, 2: SUV, 3: Pickup, 4: Sports car, 5: Luxury, 6: Commercial',
+        'help_text': 'Please select the vehicle type',
         'display_order': 3,
+        'enum_options': 'Sedan,Hatchback,SUV,Pickup,Sports car,Luxury,Commercial'
     },
     {
         'name': 'Vehicle year',
