@@ -63,21 +63,21 @@ For the API creation, Django with Django-REST-Framework was used, as it is an in
 
 Tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model, and a FieldType model, then relating the FieldType to the RiskType via a foreign key. These tables are arranged as follows:
 
-RiskType model has:
+`RiskType` fields:
 
 - `name` -- CharField.
 - `slug` -- SlugField. Non-editable; set on model save.
 - `description` -- CharField.
 
-FieldType model has:
+`FieldType` fields:
 
 - `name` -- CharField.
 - `slug` -- SlugField. Non-editable; set on model save.
 - `data_type` -- IntegerField. Choices for data types (`text`, `number`, `date`, `enum`).
 - `help_text` -- CharField. Help text to display on form field.
 - `display_order` -- IntegerField. Order in which fields are displayed in the form.
-- `enum_options` -- CharField. Helper field for enum types. It's supposed to be handled like a comma separate
-- `risk` field. Not-required, nullable foreign key field to the RiskType model.
+- `enum_options` -- CharField. Helper field for enum types. Entered like a comma separated list of entries.
+- `risk` -- ForeignKey::RiskType Non-equired, nullable foreign key field to the RiskType model.
 
 The reader may notice that only the RiskType model's name is unique (while the FieldType's is not). This is by design, since the frontend couples tightly the FieldType to the RiskType on creation. This prevents accidentally deleting another RiskType's fields when deleting any RiskType instance.
 
