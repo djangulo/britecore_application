@@ -51,7 +51,7 @@ https://9j67xix7w5.execute-api.us-east-2.amazonaws.com/prod/api/v1.0/
 
 ---
 
-## My approach<a name="approach"></a>
+## Approach<a name="approach"></a>
 
 This solution allows clients to define their own models via web-application forms. These fields, attached to a Risk description, trigger a new NoSQL database table creation (simulated in the front end using Vue and localStorage).
 
