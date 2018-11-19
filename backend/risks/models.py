@@ -33,7 +33,10 @@ class RiskType(models.Model):
         super(RiskType, self).clean(*args, **kwargs)
 
     def bulk_add_fields(self, fields):
-        """Add many field types in bulk."""
+        """
+        Add many field types in bulk, setting the calling RiskType
+        object as the risk.
+        """
         valid_fields = []
         existing_fields = []
         to_be_created_fields = []
@@ -46,6 +49,7 @@ class RiskType(models.Model):
                         'data_type': field['data_type'],
                         'help_text': field.get('help_text', ''),
                         'display_order': field.get('display_order', 1),
+                        'enum_options': field.get('enum_options', ''),
                         'risk': self
                     })
             created_fields = FieldType.objects.bulk_create(
