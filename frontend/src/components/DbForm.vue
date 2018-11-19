@@ -28,6 +28,7 @@
             :options="parseOptions(field.enum_options)" 
             v-bind="{ description: field.help_text !== '' ? `e.g. ${field.help_text}` : null, id: `input-${i}`, 'aria-describedby': `input-${i}-label` }" 
             v-model="formValues[field.name]"></b-form-select>
+        <b-form-text>{{field.help_text}}</b-form-text>
         </b-col>
       </b-row>
       <b-btn variant="outline-primary" type="submit">Create</b-btn>

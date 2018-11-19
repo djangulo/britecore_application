@@ -87,7 +87,7 @@
           </b-row>
         </b-card>
       <b-btn variant="outline-primary" type="submit">Create</b-btn>
-      <b-btn variant="outline-warning" type="submit" @click="onReset">Clear</b-btn>
+      <b-btn variant="outline-warning" type="button" @click="onReset">Clear</b-btn>
     </b-form>
 
     
@@ -156,6 +156,9 @@ export default {
       }
     },
   },
+  update() {
+    this.onReset()
+  },
   methods: {
     onSubmit: function() {
       this.validateForm()
@@ -175,10 +178,6 @@ export default {
       if(this.risks.filter(f => f.name === this.newRisk.name).length > 0) {
         this.$store.commit('alert/addAlert', `Risk "${this.newRisk.name}" already exists`)
       }
-    },
-    validateEnums: function() {
-      let enums = this.newRisk.fields.filter(f => f.data_type == 3)
-
     },
     onReset: function() {
         this.newRisk =  {

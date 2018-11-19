@@ -21,11 +21,6 @@ const actions = {
     const savedValues = {...risk}
     let msg = `Creating risk "${risk.name}".`
     commit('log/write', msg, {root: true})
-    // commit('setFormValues', {risk: {
-    //   name: '',
-    //   description: '',
-    //   fields: []
-    // }})
     return new Promise((resolve, reject) => {
       axios
       .post(`${apiRoot}/risks/`, {
@@ -83,7 +78,6 @@ const mutations = {
     state.form.fields[index].data_type = value
   },
   setFieldHelp(state, value, index) {
-    console.dir(value)
     state.form.fields[index].help_text = 'this is a modidid'
   },
   setOrder(state, value, index) {
