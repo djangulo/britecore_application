@@ -65,16 +65,18 @@ Tables were modeled rather straightforwardly (by Django standards), by creating 
 
 RiskType model has:
 
-- A `name` field (CharField).
-- A `description` field (CharField).
+- `name` -- CharField.
+- `slug` -- SlugField. Non-editable; set on model save.
+- `description` -- CharField.
 
 FieldType model has:
 
-- `name` field (CharField).
-- `data_type` field, IntegerField with choices.
-- `help_text` field, CharField (seemed appropriate as these will emulate form fields).
-- `display_order`, the order in which the fields should be displayed in the form
-- `enum_options`, helper field for enum types
+- `name` -- CharField.
+- `slug` -- SlugField. Non-editable; set on model save.
+- `data_type` -- IntegerField. Choices for data types (`text`, `number`, `date`, `enum`).
+- `help_text` -- CharField. Help text to display on form field.
+- `display_order` -- IntegerField. Order in which fields are displayed in the form.
+- `enum_options` -- CharField. Helper field for enum types. It's supposed to be handled like a comma separate
 - `risk` field. Not-required, nullable foreign key field to the RiskType model.
 
 The reader may notice that only the RiskType model's name is unique (while the FieldType's is not). This is by design, since the frontend couples tightly the FieldType to the RiskType on creation. This prevents accidentally deleting another RiskType's fields when deleting any RiskType instance.
