@@ -61,12 +61,29 @@
                 v-model="newRisk.fields[i].display_order"></b-form-input>
             </b-col>
           </b-row>
-          <b-row class="my-1">
-            <b-form-textarea id="textarea1"
-              placeholder="Help text"
-              :rows="3"
-              :max-rows="6"
-              v-model="newRisk.fields[i].help_text"></b-form-textarea>
+           <b-row class="my-1" >
+            <b-col sm="2"><label for="input-small"><small>Help text</small></label></b-col>
+            <b-col sm="10">
+              <b-form-textarea
+                id="input-small" 
+                size="sm" 
+                type="text"
+                :rows="3"
+                 :max-rows="6"
+                v-model="newRisk.fields[i].help_text"></b-form-textarea>
+            </b-col>
+          </b-row>
+          <b-row v-if="newRisk.fields[i].data_type == 3" class="my-1" >
+            <b-col sm="2"><label for="input-small"><small>Options</small></label></b-col>
+            <b-col sm="10">
+              <b-form-input
+                id="input-small" 
+                size="sm" 
+                type="text"
+                description="Comma separated list of options to display" 
+                v-model="newRisk.fields[i].enum_options"></b-form-input>
+              <b-form-text sm="10">Comma separated list of options to display.</b-form-text>
+            </b-col>
           </b-row>
         </b-card>
       <b-btn variant="outline-primary" type="submit">Create</b-btn>
@@ -158,6 +175,10 @@ export default {
       if(this.risks.filter(f => f.name === this.newRisk.name).length > 0) {
         this.$store.commit('alert/addAlert', `Risk "${this.newRisk.name}" already exists`)
       }
+    },
+    validateEnums: function() {
+      let enums = this.newRisk.fields.filter(f => f.data_type == 3)
+
     },
     onReset: function() {
         this.newRisk =  {

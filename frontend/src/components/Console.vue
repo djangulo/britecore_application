@@ -1,7 +1,15 @@
 <template>
   <div class="console-wrapper">
     <div class="header d-flex justify-content-between align-items-center">
+      <div class="d-flex">
       <h5>Status log</h5>
+      <b-link @click="showCollapse = !showCollapse"
+           :class="showCollapse ? 'collapsed' : null"
+           aria-controls="collapse4"
+           :aria-expanded="showCollapse ? 'true' : 'false'">
+      {{ showCollapse ? '(hide)' : '(show)' }}
+    </b-link>
+    </div>
       <div>
         <b-button-group variant="info" class="align-self-end">
         <b-dropdown variant="info" left split v-bind="{ text: `${keep}` }">
@@ -16,9 +24,10 @@
         </b-button-group>
       </div>
     </div>
-    <div class="console" ref="console-div">
+    <b-collapse v-model="showCollapse" class="console" id="logConsole" ref="console-div">
       <p v-for="(line, i) in log" :key="i">>>> {{ line }}</p>
-    </div>
+    </b-collapse>
+    <p v-if="!showCollapse">Latest status: {{ status }}</p>
   </div>
 </template>
 
@@ -29,6 +38,7 @@ export default {
   data () {
     return {
       keep: 0,
+      showCollapse: true,
       keepOptions: [
         { value: 0, text: 0},
         { value: 1, text: 1},
@@ -64,22 +74,15 @@ export default {
 
 <style scoped>
 .console-wrapper {
-  order: 1;
-  max-height: 35vh;
-  height: 35vh;
+  order: 5;
 }
 .console {
   height: 100%;
+  max-height: 30vh;
   overflow-y: scroll;
   background: #1e394e;
   color: white;
   border-radius: 2%;
-}
-@media (min-width: 760px) {
-  .console-wrapper {
-    grid-column: 4 / 5;
-    order: unset;
-  }
 }
 p {
   text-align: left;

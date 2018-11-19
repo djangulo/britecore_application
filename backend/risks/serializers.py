@@ -15,6 +15,7 @@ class FieldTypeSerializer(serializers.ModelSerializer):
             'help_text',
             'risk',
             'display_order',
+            'enum_options',
         )
         read_only_fields = ('id', 'slug', 'risk')
 

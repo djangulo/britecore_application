@@ -9,7 +9,10 @@
       <!-- <RiskForm v-show="selectedRisk !== null"/> -->
       <NewRiskForm />
       <DbForm v-if="selectedRisk !== null"/>
-      <Console />
+      <div class="third-col">
+        <Console />
+        <DbTables />
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +24,7 @@ import Console from './Console.vue'
 import NewRiskForm from './NewRiskForm.vue'
 import RiskList from './RiskList.vue'
 import DbForm from './DbForm.vue'
+import DbTables from './DbTables.vue'
 export default {
   name: 'GridContainer',
   components: {
@@ -28,7 +32,8 @@ export default {
     Console,
     DbForm,
     NewRiskForm,
-    RiskList
+    RiskList,
+    DbTables
   },
   computed: {
     ...mapGetters('risks', {
@@ -47,8 +52,12 @@ export default {
 @media screen and (min-width: 760px) {
   .grid {
     display: grid;
-    grid-template-columns: 0.4em repeat(3, 1fr) 0.4em;
-    grid-template-rows: repeat(2, min-content);
+    grid-template-columns: 0.4em repeat(2, 1fr)  2fr 0.4em;
+    grid-template-rows: repeat(2, max-content);
+  }
+  .third-col {
+    grid-column: 4 / 5;
+    grid-row: 1 / -1;
   }
 }
 h1 {

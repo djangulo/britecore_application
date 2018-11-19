@@ -14,6 +14,7 @@
     "vue": "^2.5.17",
     "vue-cli-plugin-s3-deploy": "^3.0.0",
     "vuedraggable": "^2.16.0",
+    "vuejs-datepicker": "^1.5.4",
     "vuex": "^3.0.1"
   },
   "devDependencies": {

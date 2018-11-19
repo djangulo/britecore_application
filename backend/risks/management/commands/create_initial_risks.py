@@ -39,10 +39,11 @@ sample_fields = [
         'display_order': 3
     },
     {
-        'name': 'Dependents',
+        'name': 'Gender',
         'data_type': 3,
-        'help_text': 'Comma separated list of each one of your dependents (i.e. children, parents, etc.).',
+        'help_text': 'Please select your gender',
         'display_order': 4,
+        'enum_options': 'male,female,rather not say'
     },
     {
         'name': 'Owner',
@@ -104,7 +105,7 @@ class Command(BaseCommand):
                 'Last name',
                 'Employee code',
                 'Birth date',
-                'Dependents',
+                'Gender',
             ):
                 f, c = FieldType.objects.get_or_create(risk=employee, **field)
             else:

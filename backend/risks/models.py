@@ -34,7 +34,6 @@ class RiskType(models.Model):
 
     def bulk_add_fields(self, fields):
         """Add many field types in bulk."""
-        # import pdb; pdb.set_trace()
         valid_fields = []
         existing_fields = []
         to_be_created_fields = []
@@ -79,6 +78,12 @@ class FieldType(models.Model):
         blank=True,
         null=True,
         on_delete=models.CASCADE,
+    )
+    enum_options = models.CharField(
+        max_length=1000,
+        blank=True,
+        default='',
+        help_text=_('Helper for enums, comma separated list of desired options')
     )
 
     class Meta:

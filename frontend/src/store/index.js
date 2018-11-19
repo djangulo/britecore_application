@@ -5,6 +5,7 @@ import risks from './modules/risks'
 import log from './modules/log'
 import newRisk from './modules/newRisk'
 import alert from './modules/alert'
+import database from './modules/database'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     log,
     newRisk,
     risks,
+    database
   },
   strict: debug,
 })
