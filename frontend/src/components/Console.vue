@@ -24,8 +24,9 @@
         </b-button-group>
       </div>
     </div>
-    <b-collapse v-model="showCollapse" class="console" id="logConsole" ref="console-div">
-      <p v-for="(line, i) in log" :key="i">>>> {{ line }}</p>
+    <b-collapse v-model="showCollapse" class="console" id="logConsole" ref="consoleDiv">
+      <p v-if="log.length > 0" v-for="(line, i) in log" :key="i">>>> {{ line }}</p>
+       <p v-else>>>> {{ line }}</p>
     </b-collapse>
     <p v-if="!showCollapse">Latest status: {{ status }}</p>
   </div>
@@ -57,17 +58,16 @@ export default {
   },
   methods: {
     scrollToBottom: function() {
-      const el = this.$refs['console-div']
-      el.scrollTop = el.scrollHeight
+      const el = document.querySelector('#logConsole')
+      const scrollHeight = el.scrollHeight
+      el.scrollTop = scrollHeight
     },
     clearLog() {
       this.$store.commit('log/clear', this.keep)
     }
   },
-  watch: {
-    log: function() {
-      this.scrollToBottom()
-    }
+  updated() {
+    this.scrollToBottom()
   }
 }
 </script>

@@ -66,6 +66,9 @@ h1 {
 h3 {
   margin: 0.2em 0 0;
 }
+h5 {
+  margin-left: 0.3em;
+}
 ul {
   padding: 0;
 }

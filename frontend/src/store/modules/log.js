@@ -19,7 +19,11 @@ const mutations = {
     state.log.push(status)
   },
   clear(state, n) {
-    state.log = state.log.slice([state.log.length - (1+n)])
+    if(n == 0) {
+      state.log = []
+    } else {
+      state.log = state.log.slice([state.log.length - (1+n)])
+    }
   }
 }
 
