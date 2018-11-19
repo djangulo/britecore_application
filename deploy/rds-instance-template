@@ -1,6 +1,6 @@
 {
     "DBName": "postgres",
-    "DBInstanceIdentifier": "britecore-app-db",
+    "DBInstanceIdentifier": "britecore-app-rds-db",
     "AllocatedStorage": 5,
     "DBInstanceClass": "db.t2.small",
     "Engine": "postgres",

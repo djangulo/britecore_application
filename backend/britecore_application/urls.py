@@ -27,7 +27,6 @@ router.register('fields', FieldTypeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', TemplateView.as_view(template_name='frontend/home.html'), name='home'),
     path('api/v1.0/', include(router.urls))
 ]
 

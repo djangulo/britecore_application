@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 from .settings import *
 SECRET_KEY = os.getenv('SECRET_KEY', None)
 
-DEBUG = False
+DEBUG = True
 # Setting it to * because we don't know the IP we'll get with 
 # zappa or docker deployments. I wouldn't use this in a real
 # production environment
