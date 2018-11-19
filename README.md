@@ -146,7 +146,10 @@ fields should use date pickers, and so on.
     - Please click any of the sample Risk Types to see the field forms implemented.
 11. Bonus points if you come up with an elegant response for when users click on an unactivated form submit 
 button.
-    - I'm afraid it's not as elegant as I'd like, just a disabled button.
+    - The risk form has a validation system built-in. If the user attempts to submit the risk creation form with:
+        - A blank "Name" field
+        - A field with a blank "Name"
+        - A risks that already exists (in the Vuex state, which should mirror the database)
 12. Mega bonus points for handling form submission.
     - The actual risk information form submission is not handled, as the project is not fully implemented.
     - Form submission for risk creation *is* implemented.
