@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from 'axios'
-const apiRoot = 'http://localhost:8000/api/v1.0'
+import { apiRoot } from './apiData'
 
 const state = {
   form: {

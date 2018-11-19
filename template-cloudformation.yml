@@ -1,0 +1,181 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    3c8ea2bb-fa01-4c3c-96ec-a6140fc0c2a0:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 240
+        'y': 80
+      z: 0
+      embeds: []
+      dependson:
+        - 4e74cc59-eb0d-4017-80f3-80d0ed0c9df1
+    0bc92697-26df-4513-8ae7-5a6ba13cffc1:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -130
+        'y': 100
+      z: 1
+      parent: f7a2019c-711f-4afc-a319-9624413d2c9d
+      embeds: []
+      dependson:
+        - 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+    4e74cc59-eb0d-4017-80f3-80d0ed0c9df1:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 20
+        'y': 90
+      z: 1
+      parent: f7a2019c-711f-4afc-a319-9624413d2c9d
+      embeds: []
+      dependson:
+        - 0bc92697-26df-4513-8ae7-5a6ba13cffc1
+        - 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+    e732ebaf-6539-4b28-9a03-44d0dc84207a:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -160
+        'y': 250
+      z: 1
+      parent: f7a2019c-711f-4afc-a319-9624413d2c9d
+      embeds: []
+      dependson:
+        - 4e74cc59-eb0d-4017-80f3-80d0ed0c9df1
+        - 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+    f7a2019c-711f-4afc-a319-9624413d2c9d:
+      size:
+        width: 420
+        height: 440
+      position:
+        x: -210
+        'y': 50
+      z: 0
+      embeds:
+        - 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+        - 0bc92697-26df-4513-8ae7-5a6ba13cffc1
+        - 4e74cc59-eb0d-4017-80f3-80d0ed0c9df1
+        - e732ebaf-6539-4b28-9a03-44d0dc84207a
+    6128fc49-f05b-4d37-b8a2-ba8cceb6212b:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -40
+        'y': 370
+      z: 1
+      parent: f7a2019c-711f-4afc-a319-9624413d2c9d
+      embeds: []
+      iscontainedinside:
+        - f7a2019c-711f-4afc-a319-9624413d2c9d
+        - f7a2019c-711f-4afc-a319-9624413d2c9d
+        - f7a2019c-711f-4afc-a319-9624413d2c9d
+        - f7a2019c-711f-4afc-a319-9624413d2c9d
+        - f7a2019c-711f-4afc-a319-9624413d2c9d
+    f188445e-2a59-4365-9bf4-ed79e920fbfa:
+      size:
+        width: 340
+        height: 320
+      position:
+        x: 300
+        'y': 260
+      z: 0
+      embeds: []
+      dependson:
+        - f7a2019c-711f-4afc-a319-9624413d2c9d
+    cd625482-ab2e-4f6a-b967-0bf214c313c6:
+      source:
+        id: e732ebaf-6539-4b28-9a03-44d0dc84207a
+      target:
+        id: 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+      z: 2
+    7eb8cb57-27f4-40e9-a114-b61d923c38cc:
+      source:
+        id: 4e74cc59-eb0d-4017-80f3-80d0ed0c9df1
+      target:
+        id: 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+      z: 3
+    452083e5-20bc-4668-a784-fa27ea3012d4:
+      source:
+        id: 0bc92697-26df-4513-8ae7-5a6ba13cffc1
+      target:
+        id: 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+      z: 4
+    f8de2d5f-ef20-457a-bcdf-b90ffe32368d:
+      source:
+        id: f188445e-2a59-4365-9bf4-ed79e920fbfa
+      target:
+        id: f7a2019c-711f-4afc-a319-9624413d2c9d
+      z: 5
+    a68de9a3-641c-452d-bbb8-69b66a0935fc:
+      source:
+        id: f188445e-2a59-4365-9bf4-ed79e920fbfa
+        selector: 'g:nth-child(1) g:nth-child(5) g:nth-child(4) circle:nth-child(1)     '
+        port: 'AWS::DependencyLink-*'
+      target:
+        id: f7a2019c-711f-4afc-a319-9624413d2c9d
+      z: 7
+Resources:
+  StaticVueServer:
+    Type: 'AWS::S3::Bucket'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3c8ea2bb-fa01-4c3c-96ec-a6140fc0c2a0
+    DependsOn:
+      - APILambdaFunction
+  PostgresRDSInstance:
+    Type: 'AWS::RDS::DBInstance'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 0bc92697-26df-4513-8ae7-5a6ba13cffc1
+    DependsOn:
+      - BriteCoreAppSecurityGroup
+  APILambdaFunction:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 4e74cc59-eb0d-4017-80f3-80d0ed0c9df1
+    DependsOn:
+      - PostgresRDSInstance
+      - BriteCoreAppSecurityGroup
+  BriteCoreAppSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      VpcId: !Ref BriteCoreAppVPC
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 6128fc49-f05b-4d37-b8a2-ba8cceb6212b
+  BriteCoreAppVPC:
+    Type: 'AWS::EC2::VPC'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: f7a2019c-711f-4afc-a319-9624413d2c9d
+  BriteCoreAppSubnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref BriteCoreAppVPC
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: f188445e-2a59-4365-9bf4-ed79e920fbfa
+    DependsOn:
+      - BriteCoreAppVPC
+  DynamoDBInstance:
+    Type: 'AWS::DynamoDB::Table'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: e732ebaf-6539-4b28-9a03-44d0dc84207a
+    DependsOn:
+      - APILambdaFunction
+      - BriteCoreAppSecurityGroup

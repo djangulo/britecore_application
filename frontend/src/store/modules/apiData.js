@@ -1,1 +1,1 @@
-export const apiRoot =  'http://localhost:8000/api/v1.0';
+export const apiRoot = 'https://bkw3yst1yb.execute-api.us-east-2.amazonaws.com/prod/api/v1.0'

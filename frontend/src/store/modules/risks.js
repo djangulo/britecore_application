@@ -1,6 +1,6 @@
 /* eslint-disable */
 import axios from 'axios'
-const apiRoot = 'http://localhost:8000/api/v1.0'
+import { apiRoot } from './apiData'
 // initial state
 // shape: [{ id, quantity }]
 const state = {
