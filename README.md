@@ -53,14 +53,13 @@ https://9j67xix7w5.execute-api.us-east-2.amazonaws.com/prod/api/v1.0/
 
 ## My approach<a name="approach"></a>
 
-This solution allows clients to define their own models, by giving them the freedom to create fields as they would please. These fields, attached to a Risk description, would then trigger a new NoSQL database table creation (simulated in the front end using Vue and localStorage).
+This solution allows clients to define their own models via web-application forms. These fields, attached to a Risk description, trigger a new NoSQL database table creation (simulated in the front end using Vue and localStorage).
 
 The models presented in the `risks/models.py` file act as metadata tables, holding the data that allows the system to connect to the would-be actual database tables (in this case, merely JavaScript objects managed through Vuex).
 
-Database table names are defined by the insurer, as defined by the RiskType name.
-The insurer is able to attach as many FieldTypes (to the RiskType object), as they like, naming without restrictions, as they only pertain to a particular risk.
+Database table names are defined by the insurer, as defined by the RiskType name. The insurer is able to attach as many FieldTypes (to the RiskType object) as they like, without naming restrictions, as they only pertain to a particular risk.
 
-For the API creation, Django with Django-REST-Framework was used. as it is an incredibly powerful tool for API creation.
+For the API creation, Django with Django-REST-Framework was used, as it is an incredibly powerful tool for API creation.
 
 Tables were modeled rather straightforwardly (by Django standards), by creating a RiskType model, and a FieldType model, then relating the FieldType to the RiskType via a foreign key. These tables are arranged as follows:
 
