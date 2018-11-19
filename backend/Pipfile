@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+gunicorn = "*"
+django-cors-headers = "*"
+zappa = "*"
+"psycopg2" = "*"
+
+[dev-packages]
+"flake8" = "*"
+zappa = "*"
+
+[requires]
+python_version = "3.6"
