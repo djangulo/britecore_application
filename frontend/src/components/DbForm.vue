@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     onSubmit: function() {
-      this.$store.dispatch('database/insertRow', {risk: this.selectedRisk, data: this.formValues})
+      this.$store.dispatch('database/createRow', {risk: this.selectedRisk, data: this.formValues})
     },
     onReset: function() {
         this.newRisk =  {

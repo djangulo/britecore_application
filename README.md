@@ -1,4 +1,4 @@
-# Denis Angulo's BriteCore project submission
+# Denis Angulo's project submission
 
 ## TOC<a name="toc"></a>
 

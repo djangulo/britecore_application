@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <h1 class="text-center">Welcome to my BriteCore application project!</h1>
+    <h1 class="text-center">Welcome to my application project!</h1>
     <p class="text-center">Thank you for taking the time to review my project.</p>
     <p class="text-center">Here is the <a href="https://github.com/djangulo/britecore_application/" target="_blank" rel="noopener">link to the github repository.</a></p>
     <Alert />

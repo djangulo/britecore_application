@@ -25,8 +25,7 @@
       </div>
     </div>
     <b-collapse v-model="showCollapse" class="console" id="logConsole" ref="consoleDiv">
-      <p v-if="log.length > 0" v-for="(line, i) in log" :key="i">>>> {{ line }}</p>
-       <p v-else>>>> {{ line }}</p>
+      <p v-for="(line, i) in log" :key="i">>>> {{ line }}</p>
     </b-collapse>
     <p v-if="!showCollapse">Latest status: {{ status }}</p>
   </div>

@@ -13,7 +13,7 @@
         <b-tab small="true"
           v-for="(table, i) in tables" :key="i"
           v-bind="{ title: `${table.name}`, }" active>
-          <b-table small striped hover :fields="table.headers" :items="table.values"></b-table>
+          <b-table small striped hover :fields="table.headers" :items="table.rows"></b-table>
         </b-tab>
       </b-tabs>
     </b-card>
@@ -83,9 +83,6 @@ export default {
         this.$store.dispatch('database/createTable', this.selectedRisk)
       }
     },
-    tables: function() {
-      this.$store.dispatch('database/refreshTables')
-    }
   }
 }
 </script>

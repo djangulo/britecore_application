@@ -24,19 +24,15 @@ const getters = {
 }
 
 const actions = {
-  insertRow({commit}, {risk, data}) {
+  createRow({commit}, {risk, data}) {
     let msg = `Inserting row into table "${risk.name}"`
     commit('log/write', msg, {root: true})
     commit('insertRow', {risk: risk, data: data})
     msg = `Successfully inserted row into table "${risk.name}"`
     commit('log/write', msg, {root: true})
   },
-  refreshTables({state}) {
-    state.tables = state.tables
-  },
   createTable({commit, state}, risk) {
-    let msg = `Creating "database" table "${risk.name}"`
-    commit('log/write', msg, {root: true})
+    let msg = ''
     if(state.tables.filter(t => t.slug === risk.slug).length > 0) {
       msg = `It seems table "${risk.name}" already exists, selecting it instead`
       commit('log/write', msg, {root: true})
@@ -80,14 +76,16 @@ const mutations = {
       slug: risk.slug,
       tabIndex: state.tabIndex + 1,
       headers: risk.fields.map(f => f.name),
-      values: []
+      rows: []
     })
   },
   setTabIndex(state, index) {
     state.tabIndex = index
   },
   insertRow(state, { risk, data}) {
-    state.tables.find(table => table.slug === risk.slug).values.push(data)
+    const tableIndex = state.tables.findIndex(table => table.slug === risk.slug)
+    state.tables[tableIndex].rows = state.tables[tableIndex].rows.concat([data])
+    // state.tables.find(table => table.slug === risk.slug).rows.push(data)
   },
   deleteRow(state, { risk, rowIndex}) {
     state.tables.splice(rowIndex, 1)
